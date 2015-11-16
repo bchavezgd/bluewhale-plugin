@@ -113,3 +113,83 @@ if (!function_exists('bluewhale_genres')) {
  * inserts date to sort by.
  *
  */
+/* Create one or more meta boxes to be displayed on the events editor screen. */
+
+/*
+ * Display the meta box on the edit screen.
+ *
+ * this code will show up on the edit screen for `events` CPT.
+ *
+ * does nothing as of 15-11-15
+ *
+ */
+
+function bluewhale_meta_box($object, $box) {
+  wp_nonce_field(basename(__FILE__), 'smashing_post_class_nonce');
+  echo('<p> <label for="event-date">');
+  _e("Day of the event, or start date (i.e. art exhibits).", 'bluewhale');
+  echo('</label><br />');
+  echo('<input class="widefat" type="date" name="event-date" id="event-date" value="');
+  echo esc_attr(get_post_meta($object->ID, 'smashing_post_class', true));
+  echo('" size="30" /></p>');
+  /* see
+   * http://www.smashingmagazine.com/2011/10/create-custom-post-meta-boxes-wordpress/#saving-the-meta-box-data
+   *
+   * for rest of article.
+   */
+}
+
+
+function bluewhale_meta_boxes() {
+  /**
+   * Add a meta box to an edit form.
+   *
+   * @since 2.5.0
+   *
+   * @global array $wp_meta_boxes
+   *
+   * @param string           $id            String for use in the 'id' attribute of tags.
+   * @param string           $title         Title of the meta box.
+   * @param callback         $callback      Function that fills the box with the desired content.
+   *                                        The function should echo its output.
+   * @param string|WP_Screen $screen        Optional. The screen on which to show the box (like a post
+   *                                        type, 'link', or 'comment'). Default is the current screen.
+   * @param string           $context       Optional. The context within the screen where the boxes
+   *                                        should display. Available contexts vary from screen to
+   *                                        screen. Post edit screen contexts include 'normal', 'side',
+   *                                        and 'advanced'. Comments screen contexts include 'normal'
+   *                                        and 'side'. Menus meta boxes (accordion sections) all use
+   *                                        the 'side' context. Global default is 'advanced'.
+   * @param string           $priority      Optional. The priority within the context where the boxes
+   *                                        should show ('high', 'low'). Default 'default'.
+   * @param array            $callback_args Optional. Data that should be set as the $args property
+   *                                        of the box array (which is the second parameter passed
+   *                                        to your callback). Default null.
+   *
+   * $callback_args
+   * An array of custom arguments you can pass
+   * to your $callback function as the second parameter.
+   *
+   * default = null
+   *
+   */
+  add_meta_box(
+          'bluewhale-date', // $id
+          esc_html__('Date of Event', 'bluewhale'), // $title,
+          'bluewhale_meta_box', // $callback
+          'events', // $screen  -> set to show up on events CPTs
+          'side', // $context
+          'default' // $priority
+          // $callback_args
+  );
+}
+
+/* setting up meta box for date */
+
+function bluewhale_meta_boxes_setup() {
+  /* Add meta boxes on the 'add_meta_boxes' hook. */
+  add_action('add_meta_boxes', 'bluewhale_meta_boxes');
+}
+
+add_action('load-post.php', 'bluewhale_meta_boxes_setup');
+add_action('load-post-new.php', 'bluewhale_meta_boxes_setup');
