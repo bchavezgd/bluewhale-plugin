@@ -1,0 +1,12 @@
+/* 
+    Created on : Dec 2, 2015, 3:56:21 PM
+    Author     : Brian
+    
+    Layout for event details.
+*/
+
+/* all styles will be nested in div#post.inside */
+
+.date {}
+.price {}
+.video-bg {}
