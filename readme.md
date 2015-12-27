@@ -2,6 +2,10 @@
 
 Plugin will work with the bluewhale theme to display custom events as the main page on the site. 
 
+2015-12-26: 
+
+Metabox working, able to save and manage dates to the db. 
+
 2015-12-18: 
 
 - Custom Post Type created, 
