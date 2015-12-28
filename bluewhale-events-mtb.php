@@ -41,6 +41,11 @@ function bluewhale_event_details($post) {
   $bluewhale_stored_meta = get_post_meta($post_id);
   
   ?>
+  <div>
+    <pre>
+      <?php var_dump($bluewhale_stored_meta) ?>
+    </pre>
+  </div>
 
     <table>
       <tr>
@@ -66,6 +71,30 @@ function bluewhale_event_details($post) {
 
         </td>
       </tr>
+
+      <tr>
+        <td>
+          
+          <label for="cover-charge">
+        <?php  _e("Cover Charge:");  ?>
+      </label>
+        </td>
+        <td>
+
+          <input class="widefat" type="number" name="cover-charge" min="0"
+        <?php
+          if (!empty( $bluewhale_stored_meta['cover-charge']) ) {
+            echo 'value="' . $bluewhale_stored_meta['cover-charge'][0] . '"';
+          } else {
+            echo 'placeholder="';
+            echo '$10.00';
+            echo '"';
+          }
+        ?> 
+      size="30" data-target="cover-charge" />
+
+        </td>
+      </tr>
     </table>
       
   		
@@ -83,6 +112,12 @@ function bluewhale_save_meta($post_id) {
   $is_autosave = wp_is_post_autosave($post_id);
   $is_revision = wp_is_post_revision($post_id);
   $is_valid_nonce = (isset($_POST['bluewhale_metabox_nonce']) && wp_verify_nonce($_POST['bluewhale_metabox_nonce'], basename(__FILE__))) ? 'true' : 'false'; // terse if/else statment
+
+/*
+ * 1. create an array containing names off all fields for metabox. 
+ * 2. iterate through each field name and run CRUD function.
+*/
+
   $new_meta_value = $_POST[ 'event-date' ];
   $old_meta_value = get_post_meta( $post_id, 'event-date', true );
 
