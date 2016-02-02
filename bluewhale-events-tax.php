@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
  *  custom taxonomy
@@ -9,24 +9,27 @@ if (!function_exists('bluewhale_genres')) {
 // Register Custom Taxonomy
   function bluewhale_genres() {
 
+    $singular = "Genre";
+    $plural = "Genres";
+
     $labels = array(
-        'name' => _x('Genres', 'Taxonomy General Name', 'bluewhale'),
+        'name' => _x($plural, 'Taxonomy General Name', 'bluewhale'),
         'singular_name' => _x('Genre', 'Taxonomy Singular Name', 'bluewhale'),
-        'menu_name' => __('Genres', 'bluewhale'),
-        'all_items' => __('All Genres', 'bluewhale'),
-        'parent_item' => __('Parent Item', 'bluewhale'),
-        'parent_item_colon' => __('Parent Item:', 'bluewhale'),
-        'new_item_name' => __('New Genre Name', 'bluewhale'),
-        'add_new_item' => __('Add New Genre', 'bluewhale'),
-        'edit_item' => __('Edit Genre', 'bluewhale'),
-        'update_item' => __('Update Genre', 'bluewhale'),
-        'view_item' => __('View Genre', 'bluewhale'),
-        'separate_items_with_commas' => __('Separate Genres with commas', 'bluewhale'),
-        'add_or_remove_items' => __('Add or remove Genres', 'bluewhale'),
-        'choose_from_most_used' => __('Choose from the most used Genres', 'bluewhale'),
-        'popular_items' => __('Popular Genres', 'bluewhale'),
-        'search_items' => __('Search Genres', 'bluewhale'),
-        'not_found' => __('Genre Not Found', 'bluewhale'),
+        'menu_name' => __($plural, 'bluewhale'),
+        'all_items' => __('All' . $plural, 'bluewhale'),
+        'parent_item' => __('Parent' . $plural, 'bluewhale'),
+        'parent_item_colon' => __('Parent {$singular}:', 'bluewhale'),
+        'new_item_name' => __('New {$singular} Name', 'bluewhale'),
+        'add_new_item' => __('Add New ' . $singular, 'bluewhale'),
+        'edit_item' => __('Edit ' . $singular, 'bluewhale'),
+        'update_item' => __('Update ' . $singular, 'bluewhale'),
+        'view_item' => __('View ' . $singular, 'bluewhale'),
+        'separate_items_with_commas' => __('Separate {$plural} with commas', 'bluewhale'),
+        'add_or_remove_items' => __('Add or remove' . $plural, 'bluewhale'),
+        'choose_from_most_used' => __('Choose from the most used' . $plural, 'bluewhale'),
+        'popular_items' => __('Popular ' . $plural, 'bluewhale'),
+        'search_items' => __('Search' . $plural, 'bluewhale'),
+        'not_found' => __($singular. ' Not Found', 'bluewhale'),
     );
     $args = array(
         'labels' => $labels,

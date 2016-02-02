@@ -7,6 +7,7 @@
     $singular = 'Event';
     $plural = 'Events';
     $slug = str_replace( ' ', '_', strtolower( $singular ) );
+    
     $labels = array(
         'name'              => $plural,
         'singular_name'     => $singular,
@@ -48,4 +49,3 @@
   }
 
   add_action('init', 'bluewhale_events', 0);
-
