@@ -24,7 +24,7 @@ if (!function_exists('bluewhale_genres')) {
         'edit_item' => __('Edit ' . $singular, 'bluewhale'),
         'update_item' => __('Update ' . $singular, 'bluewhale'),
         'view_item' => __('View ' . $singular, 'bluewhale'),
-        'separate_items_with_commas' => __('Separate {$plural} with commas', 'bluewhale'),
+        'separate_items_with_commas' => __('Separate '.$plural . ' with commas', 'bluewhale'),
         'add_or_remove_items' => __('Add or remove' . $plural, 'bluewhale'),
         'choose_from_most_used' => __('Choose from the most used' . $plural, 'bluewhale'),
         'popular_items' => __('Popular ' . $plural, 'bluewhale'),

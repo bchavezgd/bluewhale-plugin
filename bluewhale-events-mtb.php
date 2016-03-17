@@ -31,13 +31,9 @@ function bluewhale_event_details($post) {
     <table>
       <tr>
         <td>
-
-          <label for="event_date">
-        <?php  _e("Enter Date:");  ?>
-      </label>
+          <label for="event_date"><?php  _e("Enter Date:");  ?></label>
         </td>
         <td>
-
           <input class="widefat" type="text" name="event_date"
         <?php
           if (!empty( $bluewhale_stored_meta["event_date"]) ) {
@@ -45,9 +41,21 @@ function bluewhale_event_details($post) {
           } else {
             echo sprintf('placeholder="%s"', __('Select Date'));
           }
-        ?>
-      size="30" data-target="datepicker" />
+        ?> data-target="datepicker" >
 
+        </td>
+        <td>
+          <label for="headliner"><?php _e("Headliner:"); ?></label>
+        </td>
+        <td>
+          <input class="widefat" type="text" name="headliner"
+        <?php
+          if (!empty( $bluewhale_stored_meta["headliner"]) ) {
+            echo sprintf('value="%s"', $bluewhale_stored_meta["headliner"][0] );
+          } else {
+            echo sprintf('placeholder="%s"', __('Headliner'));
+          }
+        ?>>
         </td>
       </tr>
 
@@ -69,6 +77,19 @@ function bluewhale_event_details($post) {
           }
         ?> data-target="cover_charge" />
 
+        </td>
+        <td>
+          <label for="video_bg"><?php _e("Url for Video Background"); ?></label>
+        </td>
+        <td>
+          <input class="widefat" type="url" name="video_bg"
+        <?php
+          if (!empty( $bluewhale_stored_meta["video_bg"]) ) {
+            echo sprintf('value="%s"', $bluewhale_stored_meta["video_bg"][0] );
+          } else {
+            echo sprintf('placeholder="%s"', __('url'));
+          }
+        ?>>
         </td>
       </tr>
     </table>
@@ -122,20 +143,30 @@ function bluewhale_save_meta($post_id) {
   if ( '' == $new_date_value ) {
     delete_post_meta( $post_id, "event_date" );
   }
+
+  /* headliner save */
+  $new_headliner_value = $_POST[ "headliner" ];
+  $old_headliner_value = get_post_meta( $post_id, "headliner", true );
+  if ( $new_headliner_value && '' == $old_headliner_value ) {
+    add_post_meta($post_id, "headliner", $new_headliner_value );
+  }
+  if ( $new_headliner_value != $old_headliner_value ) {
+    update_post_meta($post_id, "headliner", $new_headliner_value, $old_headliner_value );
+  }
+  if ( '' == $new_headliner_value ) {
+    delete_post_meta( $post_id, "headliner" );
+  }
+
+  /* video_bg save */
+  $new_video_value = $_POST[ "video_bg" ];
+  $old_video_value = get_post_meta( $post_id, "video_bg", true );
+  if ( $new_video_value && '' == $old_video_value ) {
+    add_post_meta($post_id, "video_bg", $new_video_value );
+  }
+  if ( $new_date_value != $old_date_value ) {
+    update_post_meta($post_id, "video_bg", $new_video_value, $old_video_value );
+  }
+  if ( '' == $new_video_value ) {
+    delete_post_meta( $post_id, "video_bg" );
+  }
 }
-/* setting up meta box for date */
-
-function bluewhale_meta_box_setup() {
-  /* Add meta boxes on the 'add_meta_boxes' hook. */
-  add_action('add_meta_boxes', 'bluewhale_meta_box');
-
-  /* Adds Save meta box function to 'save post meta' hook */
-  add_action('save_post', 'bluewhale_save_meta', 10, 2);
-}
-
-/* defines screens on which meta boxes appear */
-add_action('load-post.php', 'bluewhale_meta_box_setup');
-add_action('load-post-new.php', 'bluewhale_meta_box_setup');
-
-// add_action('post.php', 'bluewhale_meta_box_setup');
-// add_action('post-new.php', 'bluewhale_meta_box_setup');
