@@ -14,7 +14,7 @@ if (!function_exists('bluewhale_genres')) {
 
     $labels = array(
         'name' => _x($plural, 'Taxonomy General Name', 'bluewhale'),
-        'singular_name' => _x('Genre', 'Taxonomy Singular Name', 'bluewhale'),
+        'singular_name' => _x($singular, 'Taxonomy Singular Name', 'bluewhale'),
         'menu_name' => __($plural, 'bluewhale'),
         'all_items' => __('All' . $plural, 'bluewhale'),
         'parent_item' => __('Parent' . $plural, 'bluewhale'),
@@ -40,7 +40,7 @@ if (!function_exists('bluewhale_genres')) {
         'show_in_nav_menus' => true,
         'show_tagcloud' => true,
     );
-    register_taxonomy('genres', array('events'), $args);
+    register_taxonomy('genres', array('events', 'artists'), $args);
   }
 
   add_action('init', 'bluewhale_genres', 0);
